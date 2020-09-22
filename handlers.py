@@ -7,7 +7,8 @@ from loguru import logger
 # noinspection PyPackageRequirements
 from telegram.ext import CommandHandler, MessageHandler, CallbackQueryHandler, Filters, CallbackContext
 
-from messages import TestMessage, MainKBMessage, WelcomeMessage, StatsMessage, InfoMessage, SettingsMessage
+from messages import TestMessage, MainKBMessage, WelcomeMessage, StatsMessage, InfoMessage, SettingsMessage, \
+    ResultMessage, InterpretationMessage
 from models import User, Base, TestResult
 from utils import get_random_food_emoji
 
@@ -28,6 +29,11 @@ class Handlers:
     @staticmethod
     def close(update, context):
         update.callback_query.message.delete()
+
+    @staticmethod
+    def interpretation(update, context):
+        update.callback_query.edit_message_text(text=update.callback_query.message.text_html, parse_mode='html')
+        update.callback_query.message.reply_text(**InterpretationMessage())
 
     @staticmethod
     def start_test(update, context):
@@ -80,11 +86,9 @@ class Handlers:
                 status = 'сильно выраженная депрессия'
             if 76 <= result <= 100:
                 status = 'крайняя степень депрессии'
-            update.callback_query.message.reply_text(
-                **MainKBMessage(f'<b>Вы набрали <code>{result}</code> баллов:</b> <b><i>{status}</i></b>'))
+            update.callback_query.edit_message_text(**ResultMessage(result))
             TestResult.create(value=result, user_id=update.effective_user.id, data=context.user_data['answers'])
             Base.session.commit()
-            update.callback_query.message.delete()
 
     @staticmethod
     def error(update, context):
@@ -180,4 +184,5 @@ class Handlers:
         dp.add_handler(CallbackQueryHandler(Handlers.close, pattern='close'))
         dp.add_handler(CallbackQueryHandler(Handlers.settings, pattern='settings_.*'))
         dp.add_handler(CallbackQueryHandler(Handlers.placeholder, pattern='placeholder'))
+        dp.add_handler(CallbackQueryHandler(Handlers.interpretation, pattern='interpretation'))
         dp.add_error_handler(Handlers.error)
