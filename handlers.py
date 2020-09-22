@@ -115,6 +115,7 @@ class Handlers:
         if update.callback_query:
             if 'settings_period_set_' in update.callback_query.data:
                 option = update.callback_query.data.split('_')[-1]
+                user.last_notified = datetime.datetime.utcnow().date()
                 user.notification_period = None if option == 'off' else int(option)
                 Base.session.commit()
             if 'settings_time_digit_' in update.callback_query.data:
