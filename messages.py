@@ -90,11 +90,11 @@ class TestMessage(dict):
     def __init__(self, question_number):
         markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton('🙅‍♂️ Ни разу', callback_data='answer_0')],
-                [InlineKeyboardButton('🙍‍♂️ Иногда', callback_data='answer_1')],
+                [InlineKeyboardButton('🙅‍♂️ Совсем нет', callback_data='answer_0')],
+                [InlineKeyboardButton('🙍‍♂️ Немного', callback_data='answer_1')],
                 [InlineKeyboardButton('💁‍♂️ Умеренно', callback_data='answer_2')],
-                [InlineKeyboardButton('🤷‍♂️ Часто', callback_data='answer_3')],
-                [InlineKeyboardButton('🙇‍♂️ Крайне часто', callback_data='answer_4')],
+                [InlineKeyboardButton('🤷‍♂️ Сильно', callback_data='answer_3')],
+                [InlineKeyboardButton('🙇‍♂️ Крайне', callback_data='answer_4')],
                 [InlineKeyboardButton('❌ Отмена', callback_data='close')]
             ]
         )
