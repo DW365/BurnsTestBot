@@ -1,0 +1,12 @@
+tqdm
+sqlalchemy
+sqlalchemy-mixins
+python-telegram-bot
+dynaconf
+flask
+flask-admin
+flask-babelex
+flask-sqlalchemy
+flask-basicauth
+python-dateutil
+loguru
