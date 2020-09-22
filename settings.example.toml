@@ -1,0 +1,8 @@
+[default]
+bot_token="123:AAAAAAAAAA"
+
+info_msg = "Инфо!"
+welcome_msg = "Добро пожаловать!"
+notify_msg = "Пора проходить тест!"
+
+admin_id = 12345678
