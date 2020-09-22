@@ -69,7 +69,7 @@ class Handlers:
             update.callback_query.answer('Опрос неактивен т.к. был создан более новый')
             return
         context.user_data['answers'].append(int(update.callback_query.data.split('_')[-1]))
-        if len(context.user_data['answers']) < 24:
+        if len(context.user_data['answers']) < 25:
             update.callback_query.edit_message_text(**TestMessage(len(context.user_data['answers'])))
         else:
             result = sum(context.user_data['answers'])
